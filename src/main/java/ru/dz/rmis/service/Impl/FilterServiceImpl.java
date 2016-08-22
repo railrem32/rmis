@@ -1,12 +1,14 @@
 package ru.dz.rmis.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.dz.rmis.model.Filter;
 import ru.dz.rmis.repository.FilterRepository;
 import ru.dz.rmis.service.FilterService;
 
 import java.util.List;
 
+@Service
 public class FilterServiceImpl implements FilterService {
 
     @Autowired

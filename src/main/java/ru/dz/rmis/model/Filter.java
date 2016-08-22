@@ -1,10 +1,11 @@
 package ru.dz.rmis.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Filter")
-public class Filter {
+public class Filter implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
