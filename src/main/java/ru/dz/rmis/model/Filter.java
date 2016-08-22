@@ -16,6 +16,13 @@ public class Filter {
     @Column(nullable = false)
     private String className;
 
+    public Filter() {}
+
+    public Filter(String name, String className) {
+        this.name = name;
+        this.className = className;
+    }
+
     public Long getId() {
         return id;
     }
