@@ -43,4 +43,25 @@ public class Filter implements Serializable{
     public void setClassName(String className) {
         this.className = className;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Filter filter = (Filter) o;
+
+        if (!id.equals(filter.id)) return false;
+        if (!name.equals(filter.name)) return false;
+        return className.equals(filter.className);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + className.hashCode();
+        return result;
+    }
 }
