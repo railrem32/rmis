@@ -1,6 +1,0 @@
-
-CREATE TABLE table_name (
-  id BIGINT IDENTITY PRIMARY KEY,
-  field VARCHAR(30)
-  
-);

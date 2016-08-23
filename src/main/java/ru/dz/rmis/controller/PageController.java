@@ -16,6 +16,6 @@ public class PageController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Locale locale, Model model) {
-        return "index";
+        return "images";
     }
 }
