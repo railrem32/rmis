@@ -7,8 +7,11 @@ import java.util.List;
 public interface FilterService {
 
     void save(Filter filter);
+
     void delete(Filter filter);
+
     List<Filter> findAll();
+
     Filter findOne(Long id);
 
 }
