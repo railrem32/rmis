@@ -11,6 +11,7 @@ import ru.dz.rmis.model.Image;
 import ru.dz.rmis.service.ImageService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 /**
  * Created by Alex on 23.08.16.
@@ -35,7 +36,7 @@ public class ImageController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = { "multipart/form-data" })
-    public String createNew(@ModelAttribute("imageForm") @Valid ImageDto imageDto) {
+    public String createNew(@ModelAttribute("imageForm") @Valid ImageDto imageDto) throws IOException {
         Image image = ImageHelper.createImageFromDto(imageDto);
         Long id = imageService.save(image);
         return redirectToView("/image/" + id);
@@ -48,7 +49,7 @@ public class ImageController extends BaseController {
     }
 
     @RequestMapping(name = "/{id}", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
-    public String updateImage(@PathVariable Long id, @ModelAttribute("imageForm") @Valid ImageDto imageDto) {
+    public String updateImage(@PathVariable Long id, @ModelAttribute("imageForm") @Valid ImageDto imageDto) throws IOException {
         Image image = ImageHelper.updateImageFromDto(imageService.getById(id), imageDto);
         imageService.save(image);
         return redirectToView("/image/" + id);
