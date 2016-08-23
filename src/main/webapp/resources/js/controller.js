@@ -20,7 +20,7 @@ app.controller('ImageCtrl', function ($scope, $http) {
 
     $scope.modelFormHeader = '';
 
-    $scope.typeOfs = ['VOID', 'FUNCTION', 'ACTION'];
+    $scope.typeOfs = ['I', 'II', 'VI'];
 
     $scope.currentImage = {
         description: '',
