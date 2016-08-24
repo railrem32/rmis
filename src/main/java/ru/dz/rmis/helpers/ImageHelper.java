@@ -1,7 +1,7 @@
 package ru.dz.rmis.helpers;
 
 import ru.dz.rmis.dto.ImageDto;
-import ru.dz.rmis.model.Image;
+import ru.dz.rmis.model.ImageEntity;
 
 import java.io.IOException;
 
@@ -10,13 +10,13 @@ import java.io.IOException;
  */
 public class ImageHelper {
 
-    public static Image createImageFromDto(ImageDto imageDto) throws IOException {
-        Image image = new Image();
+    public static ImageEntity createImageFromDto(ImageDto imageDto) throws IOException {
+        ImageEntity image = new ImageEntity();
         updateImageFromDto(image, imageDto);
         return image;
     }
 
-    public static Image updateImageFromDto(Image image, ImageDto imageDto) throws IOException {
+    public static ImageEntity updateImageFromDto(ImageEntity image, ImageDto imageDto) throws IOException {
         image.setName(imageDto.getName());
         image.setStudyId(imageDto.getStudyId());
         image.setPatientId(imageDto.getPatientId());

@@ -1,7 +1,5 @@
 package ru.dz.rmis.model;
 
-import ru.dz.rmis.dto.ImageDto;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -12,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "Images")
-public class Image implements Serializable {
+public class ImageEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,10 +34,10 @@ public class Image implements Serializable {
     @OneToOne
     private ProcessedImage processedImage;
 
-    public Image() {
+    public ImageEntity() {
     }
 
-    public Image(String name, Long studyId, Long patientId, Date date, byte[] image) {
+    public ImageEntity(String name, Long studyId, Long patientId, Date date, byte[] image) {
         this.name = name;
         this.studyId = studyId;
         this.patientId = patientId;
@@ -108,7 +106,7 @@ public class Image implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Image image1 = (Image) o;
+        ImageEntity image1 = (ImageEntity) o;
 
         if (!id.equals(image1.id)) return false;
         if (!name.equals(image1.name)) return false;

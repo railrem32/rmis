@@ -1,6 +1,6 @@
 package ru.dz.rmis.service;
 
-import ru.dz.rmis.model.Image;
+import ru.dz.rmis.model.ImageEntity;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface ImageService {
 
-    Long save(Image image);
+    Long save(ImageEntity image);
 
     void deleteById(Long id);
 
-    List<Image> getAll();
+    List<ImageEntity> getAll();
 
-    Image getById(Long id);
+    ImageEntity getById(Long id);
 }

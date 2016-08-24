@@ -16,7 +16,7 @@ public class ProcessedImage implements Serializable {
     private Long id;
 
     @OneToOne
-    private Image originalImage;
+    private ImageEntity originalImage;
 
     // List of value pairs such as [{x: 1, y: 1}, {x: 2, y: 2}]
     @Column
@@ -25,7 +25,7 @@ public class ProcessedImage implements Serializable {
     public ProcessedImage() {
     }
 
-    public ProcessedImage(Image originalImage, String coordinaatesJson) {
+    public ProcessedImage(ImageEntity originalImage, String coordinaatesJson) {
         this.originalImage = originalImage;
         this.coordinaatesJson = coordinaatesJson;
     }
@@ -38,11 +38,11 @@ public class ProcessedImage implements Serializable {
         this.id = id;
     }
 
-    public Image getOriginalImage() {
+    public ImageEntity getOriginalImage() {
         return originalImage;
     }
 
-    public void setOriginalImage(Image originalImage) {
+    public void setOriginalImage(ImageEntity originalImage) {
         this.originalImage = originalImage;
     }
 

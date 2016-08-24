@@ -1,13 +1,12 @@
 package ru.dz.rmis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.dz.rmis.dto.ImageDto;
 import ru.dz.rmis.helpers.ImageHelper;
-import ru.dz.rmis.model.Image;
+import ru.dz.rmis.model.ImageEntity;
 import ru.dz.rmis.service.ImageService;
 
 import javax.validation.Valid;
@@ -37,7 +36,7 @@ public class ImageController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = { "multipart/form-data" })
     public String createNew(@ModelAttribute("imageForm") @Valid ImageDto imageDto) throws IOException {
-        Image image = ImageHelper.createImageFromDto(imageDto);
+        ImageEntity image = ImageHelper.createImageFromDto(imageDto);
         Long id = imageService.save(image);
         return redirectToView("/image/" + id);
     }
@@ -50,7 +49,7 @@ public class ImageController extends BaseController {
 
     @RequestMapping(name = "/{id}", method = RequestMethod.PUT, consumes = { "multipart/form-data" })
     public String updateImage(@PathVariable Long id, @ModelAttribute("imageForm") @Valid ImageDto imageDto) throws IOException {
-        Image image = ImageHelper.updateImageFromDto(imageService.getById(id), imageDto);
+        ImageEntity image = ImageHelper.updateImageFromDto(imageService.getById(id), imageDto);
         imageService.save(image);
         return redirectToView("/image/" + id);
     }

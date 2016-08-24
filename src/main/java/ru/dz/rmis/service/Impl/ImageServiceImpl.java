@@ -2,7 +2,7 @@ package ru.dz.rmis.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.dz.rmis.model.Image;
+import ru.dz.rmis.model.ImageEntity;
 import ru.dz.rmis.repository.ImageRepository;
 import ru.dz.rmis.service.ImageService;
 
@@ -18,7 +18,7 @@ public class ImageServiceImpl implements ImageService {
     private ImageRepository imageRepository;
 
     @Override
-    public Long save(Image image) {
+    public Long save(ImageEntity image) {
         return imageRepository.save(image).getId();
     }
 
@@ -28,12 +28,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Image> getAll() {
+    public List<ImageEntity> getAll() {
         return imageRepository.findAll();
     }
 
     @Override
-    public Image getById(Long id) {
+    public ImageEntity getById(Long id) {
         return imageRepository.findOne(id);
     }
 }
