@@ -38,15 +38,6 @@ public class HibernateConfiguration {
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         return properties;
     }
-    
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "ru.dz.rmis.entity" });
-        sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
-     }
 
     @Bean
     public DataSource dataSource() {
@@ -58,7 +49,7 @@ public class HibernateConfiguration {
         return dataSource;
     }
 
-        @Bean
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
@@ -70,7 +61,6 @@ public class HibernateConfiguration {
         return entityManagerFactoryBean;
     }
 
-    
     @Bean
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory s) {

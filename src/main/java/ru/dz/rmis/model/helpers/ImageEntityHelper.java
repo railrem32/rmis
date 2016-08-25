@@ -1,12 +1,13 @@
 package ru.dz.rmis.model.helpers;
 
-import ru.dz.rmis.model.dto.ImageDto;
+import org.springframework.stereotype.Component;
 import ru.dz.rmis.model.ImageEntity;
-
+import ru.dz.rmis.model.dto.ImageDto;
 
 /**
  * Created by Alex on 23.08.16.
  */
+@Component
 public class ImageEntityHelper {
 
     public ImageEntity createImageFromDto(ImageDto imageDto) {
