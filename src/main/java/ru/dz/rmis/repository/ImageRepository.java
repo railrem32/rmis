@@ -7,6 +7,6 @@ import ru.dz.rmis.model.ImageEntity;
 /**
  * Created by Alex on 22.08.16.
  */
-@Repository
+
 public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 }

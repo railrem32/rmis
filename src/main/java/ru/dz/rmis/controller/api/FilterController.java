@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/filters")
-public class FilterController extends BaseController {
+public class FilterController {//extends BaseController {
 
     @Autowired
     private FilterService filterService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String filters () {
-        request.setAttribute("filters", filterService.findAll());
+//        request.setAttribute("filters", filterService.findAll());
         return "filters";
     }
 
@@ -42,7 +42,7 @@ public class FilterController extends BaseController {
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String edit(@PathVariable Long id) {
-        request.setAttribute("filter", filterService.findOne(id));
+//        request.setAttribute("filter", filterService.findOne(id));
         return "edit_filter";
     }
 
