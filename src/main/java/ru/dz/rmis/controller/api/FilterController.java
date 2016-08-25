@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/filters")
-public class FilterController extends BaseController {
+public class FilterController {
 
     @Autowired
     private FilterService filterService;
+
+    private HttpServletRequest request;
 
     @RequestMapping(method = RequestMethod.GET)
     public String filters () {

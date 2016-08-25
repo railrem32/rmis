@@ -1,11 +1,11 @@
 package ru.dz.rmis.config;
 
 import java.util.Properties;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan({"ru.dz.rmis.config"})
 @PropertySource(value = {"classpath:hibernate.properties"})
 @EnableJpaRepositories("ru.dz.rmis.repository")
-@EntityScan(basePackages = "ru.dz.rmis.model")
 public class HibernateConfiguration {
 
     @Autowired
@@ -41,15 +40,40 @@ public class HibernateConfiguration {
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         return properties;
     }
-    
+
+    @Bean
+    public EntityManager entityManager() {
+        return entityManagerFactory().getObject().createEntityManager();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        entityManagerFactoryBean.setPackagesToScan(environment.getRequiredProperty("entitymanager.packages.to.scan"));
+
+        entityManagerFactoryBean.setJpaProperties(hibernateProperties());
+
+        return entityManagerFactoryBean;
+    }
+
+    @Bean
+    public JpaTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+
+        return transactionManager;
+    }
+
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "ru.dz.rmis.entity" });
+        sessionFactory.setPackagesToScan(new String[]{"ru.dz.rmis.model"});
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
-     }
+    }
 
     @Bean
     public DataSource dataSource() {
@@ -69,16 +93,4 @@ public class HibernateConfiguration {
         return txManager;
     }
 
-    @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setShowSql(true);
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setJpaVendorAdapter(vendorAdapter);
-        factoryBean.setPackagesToScan("ru.dz.rmis.model", "ru.dz.rmis");
-        factoryBean.setDataSource(dataSource());
-        factoryBean.afterPropertiesSet();
-        return factoryBean.getObject();
-    }
 }
