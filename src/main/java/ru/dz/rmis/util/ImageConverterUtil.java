@@ -12,6 +12,7 @@ import java.awt.*;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -40,6 +41,23 @@ public class ImageConverterUtil {
 
         return coordinates;
     }
+
+
+    public byte [] getByteByImage(Image image) throws IOException {
+
+        BufferedImage bufferedImage = new BufferedImage
+                (image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_RGB);
+
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write( bufferedImage, "jpg", baos );
+        baos.flush();
+        byte[] imageInByte = baos.toByteArray();
+        baos.close();
+
+        return  imageInByte;
+    }
+
 
 
     public Image getImageByCoord(String coordinates) throws IOException {
