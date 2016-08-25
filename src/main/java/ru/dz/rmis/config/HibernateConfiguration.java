@@ -4,6 +4,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan({"ru.dz.rmis.config"})
 @PropertySource(value = {"classpath:hibernate.properties"})
-@EnableJpaRepositories
+@EnableJpaRepositories("ru.dz.rmis.repository")
+@EntityScan(basePackages = "ru.dz.rmis.model")
 public class HibernateConfiguration {
 
     @Autowired
