@@ -2,8 +2,10 @@ package ru.dz.rmis.util;
 
 
 
+import org.hibernate.Criteria;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import ru.dz.rmis.filter.FilterProcessed;
 import ru.dz.rmis.service.ImageService;
 import ru.dz.rmis.model.ImageEntity;
 
@@ -15,7 +17,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.util.*;
+import java.util.List;
 
 
 /**
@@ -155,7 +158,21 @@ public class ImageConverterUtil {
 
     }
 
+    public ImageEntity applyFilter(ImageEntity image) {
+        List<ImageEntity> allImage = imageService.getAll();
+        FilterProcessed filterProcessed = new FilterProcessed();
+        try {
+            Image imageAWT = getImageByCoord(image.getProcessedImage().getCoordinaatesJson());
+            imageAWT = filterProcessed.apply(imageAWT);
+            byte [] imageInByte = getByteByImage(imageAWT);
+            image.setImage(imageInByte);
 
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return image;
+    }
 
 }
 

@@ -21,6 +21,7 @@ import ru.dz.rmis.model.dto.ImageDto;
 import ru.dz.rmis.model.dto.ImagesDto;
 import ru.dz.rmis.model.helpers.ImageEntityHelper;
 import ru.dz.rmis.service.ImageService;
+import ru.dz.rmis.util.ImageConverterUtil;
 
 /**
  *
@@ -118,6 +119,22 @@ public class ImageApiController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/apply/{id}", method = RequestMethod.POST)
+    public String applyFilter(@PathVariable Long id){
+        ImageConverterUtil imageConverterUtil = new ImageConverterUtil();
+        List<ImageEntity> images = imageService.getAll();
+        ImageEntity current_image = imageService.getById(id);
+        for(ImageEntity img: images){
+            if (img.getTypeOf().name().equals(current_image.getTypeOf().name())){
+                img = imageConverterUtil.applyFilter(img);
+                imageService.save(img);
+            }
+        }
+        current_image = imageConverterUtil.applyFilter(current_image);
+        imageService.save(current_image);
+        return "redirect:/filters";
     }
 
 }
