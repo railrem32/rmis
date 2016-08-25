@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.dz.rmis.controller.BaseController;
 import ru.dz.rmis.model.Filter;
 import ru.dz.rmis.service.FilterService;
 

@@ -1,12 +1,13 @@
 package ru.dz.rmis.service.Impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.dz.rmis.model.ImageEntity;
 import ru.dz.rmis.repository.ImageRepository;
 import ru.dz.rmis.service.ImageService;
-
-import java.util.List;
 
 /**
  * Created by Alex on 23.08.16.
@@ -38,8 +39,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageEntity> findAllByPage(int page, int pageSize) {
-        return null;
+    public Page<ImageEntity> findAllByPage(int page, int pageSize) {
+        PageRequest request = new PageRequest(page - 1, pageSize);
+        Page<ImageEntity> result = imageRepository.findAll(request);
+
+        return result;
     }
 
     @Override
