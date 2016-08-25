@@ -50,7 +50,7 @@ public class ImageConverterUtil {
 
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bufferedImage, "jpg", baos );
+        ImageIO.write( bufferedImage, "png", baos );
         baos.flush();
         byte[] imageInByte = baos.toByteArray();
         baos.close();
