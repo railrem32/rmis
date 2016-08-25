@@ -114,6 +114,79 @@ app.controller('ImageCtrl', function ($scope, $http) {
 
 });
 
+app.controller('FilterCtrl', function ($scope, $http) {
+
+    $scope.modelFormHeader = '';
+
+    $scope.classNames = ['FilterProcessed'];
+
+    $scope.currentFilter = {
+        name: '',
+        className:''
+    };
+
+    $scope.filters = {};
+
+    $scope.newFilter = function () {
+        $scope.currentFilter = {
+            name: 'Наименование фильтра',
+            className: 'Класс реализации'
+        };
+    };
+
+    $scope.deleteFilter = function (filter) {
+        $http({
+            method: "DELETE",
+            url: "/filters/" + filter.id
+        }).then(function (response) {
+            $scope.newFilter();
+            $scope.loadFilters();
+        }), function (error) {
+            var a = 1;
+        };
+    };
+
+    $scope.saveFilter = function (filter) {
+        var fd = new FormData();
+        fd.append('name', filter.name);
+        fd.append('className', filter.className);
+
+        $http.post("/filters", fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function (data) {
+            $scope.newFilter();
+            $scope.loadFilters();
+        }).error(function (data) {
+            var a = 1;
+        });
+    };
+
+
+
+    $scope.setCurrentFilter= function (title, filter) {
+        $scope.currentFilter = angular.copy(filter);
+        $scope.modelFormHeader = title;
+    };
+
+    $scope.loadFilters = function () {
+        $http({
+            method: "GET",
+            url: "/filters"
+        }).then(function (response) {
+            $scope.filters = response.data;
+            $('.loader').hide();
+            $('.data').show();
+        }), function (error) {
+            var a = 1;
+        };
+    };
+
+    $scope.loadFilters();
+
+
+});
+
 function activeMenu(menu) {
     $('#' + menu).removeClass('alert-warning');
     $('#' + menu).addClass('alert-success');
