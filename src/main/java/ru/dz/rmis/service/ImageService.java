@@ -1,5 +1,6 @@
 package ru.dz.rmis.service;
 
+import org.springframework.cglib.util.StringSwitcher;
 import ru.dz.rmis.model.ImageEntity;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface ImageService {
     List<ImageEntity> getAll();
 
     ImageEntity getById(Long id);
+
+    List<ImageEntity> findAllByPage(int page, int pageSize);
+
+    long countAll();
 }

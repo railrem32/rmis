@@ -36,4 +36,14 @@ public class ImageServiceImpl implements ImageService {
     public ImageEntity getById(Long id) {
         return imageRepository.findOne(id);
     }
+
+    @Override
+    public List<ImageEntity> findAllByPage(int page, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public long countAll() {
+        return imageRepository.count();
+    }
 }

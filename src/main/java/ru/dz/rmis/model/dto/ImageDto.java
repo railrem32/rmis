@@ -1,37 +1,37 @@
 package ru.dz.rmis.model.dto;
 
+import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- *
- * @author vassaeve
+ * Created by Alex on 23.08.16.
  */
+@Component
 public class ImageDto implements Serializable {
 
     private static final long serialVersionUID = -1971645606381715556L;
 
     private Long id;
-    private String description;
-    private String typeOf;
 
-    public ImageDto(Long id, String description) {
-        this.id = id;
-        this.description = description;
-    }
+    @NotNull
+    @Size(min = 1)
+    private String name;
 
-    public ImageDto(Long id, String description, String typeOf) {
-        this.id = id;
-        this.description = description;
-        this.typeOf = typeOf;
-    }
+    @NotNull
+    private Long studyId;
 
-    public String getTypeOf() {
-        return typeOf;
-    }
+    @NotNull
+    private Long patientId;
 
-    public void setTypeOf(String typeOf) {
-        this.typeOf = typeOf;
-    }
+    @NotNull
+    private Date date;
+
+    @NotNull
+    private byte[] imageBytes;
 
     public Long getId() {
         return id;
@@ -41,12 +41,43 @@ public class ImageDto implements Serializable {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public Long getStudyId() {
+        return studyId;
+    }
+
+    public void setStudyId(Long studyId) {
+        this.studyId = studyId;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public byte[] getImageBytes() {
+        return imageBytes;
+    }
+
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
+    }
 }

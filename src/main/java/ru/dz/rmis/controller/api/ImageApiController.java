@@ -18,7 +18,7 @@ import ru.dz.rmis.model.ImageTypeOf;
 import ru.dz.rmis.model.ImageEntity;
 import ru.dz.rmis.model.dto.ImageDto;
 import ru.dz.rmis.model.dto.ImagesDto;
-import ru.dz.rmis.model.helper.ImageEntityHelper;
+import ru.dz.rmis.model.helpers.ImageEntityHelper;
 import ru.dz.rmis.service.ImageService;
 
 /**
@@ -39,9 +39,9 @@ public class ImageApiController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<Object> get(@PathVariable("id") long id) {
 
-        ImageEntity entity = imageService.findByPK(id);
+        ImageEntity entity = imageService.getById(id);
         if (entity != null) {
-            return new ResponseEntity<>(imageEntityHelper.createDto(entity), HttpStatus.OK);
+            return new ResponseEntity<>(imageEntityHelper.createDtoFromImageEntity(entity), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -49,9 +49,9 @@ public class ImageApiController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") long id) {
-        ImageEntity entity = imageService.findByPK(id);
+        ImageEntity entity = imageService.getById(id);
         if (entity != null) {
-            imageService.delete(entity);
+            imageService.deleteById(id);
             return new ResponseEntity<>("", HttpStatus.OK);
         }
         return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
@@ -64,10 +64,10 @@ public class ImageApiController {
         List<ImageEntity> list = imageService.findAllByPage(page, pageSize);
         List<ImageDto> result = new ArrayList<>(list.size());
         list.stream().forEach((image) -> {
-            result.add(imageEntityHelper.createDto(image));
+            result.add(imageEntityHelper.createDtoFromImageEntity(image));
         });
 
-        int size = imageService.countAll().intValue();
+        int size = (int) imageService.countAll();
         return new ResponseEntity<>(new ImagesDto(size, result), HttpStatus.OK);
     }
 
@@ -82,7 +82,7 @@ public class ImageApiController {
         if (!StringUtils.isEmpty(imageId) && !"undefined".equals(imageId)) {
             //Обновляем существующий скрипт
             try {
-                image = imageService.findByPK(Long.parseLong(imageId));
+                image = imageService.getById(Long.parseLong(imageId));
             } catch (NumberFormatException ex) {
             }
         } else {
@@ -108,7 +108,7 @@ public class ImageApiController {
 
             if (save) {
                 imageService.save(image);
-                return new ResponseEntity<>(new ImageDto(image.getId(), image.getDescription()), HttpStatus.OK);
+                return new ResponseEntity<>(imageEntityHelper.createDtoFromImageEntity(image), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
