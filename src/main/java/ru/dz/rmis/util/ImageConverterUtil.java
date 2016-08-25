@@ -46,7 +46,7 @@ public class ImageConverterUtil {
     public byte [] getByteByImage(Image image) throws IOException {
 
         BufferedImage bufferedImage = new BufferedImage
-                (image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_RGB);
+                (image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
 
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
