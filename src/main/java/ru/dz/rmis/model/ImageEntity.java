@@ -31,6 +31,13 @@ public class ImageEntity implements Serializable {
     @Column
     private byte[] image;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_of ")
+    private ImageTypeOf typeOf;
+
     @OneToOne
     private ProcessedImage processedImage;
 
@@ -49,6 +56,14 @@ public class ImageEntity implements Serializable {
         return id;
     }
 
+    public ImageTypeOf getTypeOf() {
+        return typeOf;
+    }
+
+    public void setTypeOf(ImageTypeOf typeOf) {
+        this.typeOf = typeOf;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -59,6 +74,14 @@ public class ImageEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getStudyId() {

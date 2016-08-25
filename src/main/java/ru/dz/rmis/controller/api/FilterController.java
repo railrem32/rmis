@@ -1,4 +1,4 @@
-package ru.dz.rmis.controller;
+package ru.dz.rmis.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

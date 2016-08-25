@@ -85,7 +85,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="scrName">Тип функции:</label>
+                                        <label for="scrName">Тип</label>
                                         <select class="form-control" ng-model="currentImage.typeOf" ng-options="typeOf for typeOf in typeOfs"></select>
                                     </div>
 
