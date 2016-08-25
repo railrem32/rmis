@@ -7,7 +7,7 @@
 <html ng-app="app" ng-controller="ImageCtrl">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Groovy скрипты</title>
+        <title>Изображения</title>
 
         <%@include file="/WEB-INF/pages/jspf/head.jspf" %>
 
@@ -37,10 +37,10 @@
                                 <td>{{image.description}}</td>
                                 <td>{{image.typeOf}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editForm" ng-click="setCurrentImage('Редактирование', script)">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editForm" ng-click="setCurrentImage('Редактирование', image)">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm" ng-click="setCurrentImage('Удаление', script)">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm" ng-click="setCurrentImage('Удаление', image)">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
                                 </td>

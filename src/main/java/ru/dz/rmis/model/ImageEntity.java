@@ -12,6 +12,8 @@ import java.util.Date;
 @Table(name = "Images")
 public class ImageEntity implements Serializable {
 
+    private static final long serialVersionUID = -7675248942682135857L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,7 +30,9 @@ public class ImageEntity implements Serializable {
     @Column
     private Date date;
 
-    @Column
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "IMAGE")
     private byte[] image;
 
     @Column(name = "DESCRIPTION")
@@ -126,16 +130,30 @@ public class ImageEntity implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ImageEntity image1 = (ImageEntity) o;
 
-        if (!id.equals(image1.id)) return false;
-        if (!name.equals(image1.name)) return false;
-        if (!studyId.equals(image1.studyId)) return false;
-        if (!patientId.equals(image1.patientId)) return false;
-        if (!date.equals(image1.date)) return false;
+        if (!id.equals(image1.id)) {
+            return false;
+        }
+        if (!name.equals(image1.name)) {
+            return false;
+        }
+        if (!studyId.equals(image1.studyId)) {
+            return false;
+        }
+        if (!patientId.equals(image1.patientId)) {
+            return false;
+        }
+        if (!date.equals(image1.date)) {
+            return false;
+        }
         return Arrays.equals(image, image1.image);
 
     }

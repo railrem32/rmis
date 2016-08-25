@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <div class="rborder">
-    <a href="/images" class="btn btn-md btn-block alert-warning" id="images">Изображения</a>
-    <a href="/pageone" class="btn btn-md btn-block alert-warning" id="pageone">Какая-то страница</a>
-    <a href="/filters" class="btn btn-md btn-block alert-warning" id="filters">Фильтры</a>
+    <a href="./images" class="btn btn-md btn-block alert-warning" id="images">Изображения</a>
+    <a href="./pageone" class="btn btn-md btn-block alert-warning" id="pageone">Какая-то страница</a>
+    <a href="./filters" class="btn btn-md btn-block alert-warning" id="filters">Фильтры</a>
 </div>

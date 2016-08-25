@@ -12,7 +12,7 @@ public enum ImageTypeOf {
     VI;
 
     public static ImageTypeOf valueOf1(String name) {
-        switch (name) {
+        switch (name+"") {
             case "I":
                 return I;
             case "II":

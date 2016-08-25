@@ -77,9 +77,9 @@ public class ImageApiController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<Object> create(
-            @RequestParam(value = "imageId") String imageId,
-            @RequestParam(value = "description", required = true) String description,
-            @RequestParam(value = "typeOf") String typeOf,
+            @RequestParam(value = "imageId", required = false) String imageId,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "typeOf", required = false) String typeOf,
             @RequestParam(value = "file", required = false) MultipartFile file) {
         ImageEntity image = null;
         boolean save = false;

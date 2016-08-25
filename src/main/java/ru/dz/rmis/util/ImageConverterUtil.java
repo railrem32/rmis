@@ -1,8 +1,5 @@
 package ru.dz.rmis.util;
 
-
-
-import org.hibernate.Criteria;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import ru.dz.rmis.filter.FilterProcessed;
@@ -17,23 +14,18 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 import java.util.List;
-
 
 /**
  * Created by Nail on 21.08.2016.
  */
 public class ImageConverterUtil {
 
-
     private ImageService imageService;
-
 
     public String getCoordByImage(Long id) throws IOException {
 
-
-        ImageEntity imageEntity= imageService.getById(id);
+        ImageEntity imageEntity = imageService.getById(id);
         InputStream in = new ByteArrayInputStream(imageEntity.getImage());
         BufferedImage image = ImageIO.read(in);
 
@@ -45,28 +37,22 @@ public class ImageConverterUtil {
         return coordinates;
     }
 
+    public byte[] getByteByImage(Image image) throws IOException {
 
-    public byte [] getByteByImage(Image image) throws IOException {
-
-        BufferedImage bufferedImage = new BufferedImage
-                (image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
-
+        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bufferedImage, "png", baos );
+        ImageIO.write(bufferedImage, "png", baos);
         baos.flush();
         byte[] imageInByte = baos.toByteArray();
         baos.close();
 
-        return  imageInByte;
+        return imageInByte;
     }
-
-
 
     public Image getImageByCoord(String coordinates) throws IOException {
 
-
-        JSONObject jObject  = new JSONObject(coordinates); // json
+        JSONObject jObject = new JSONObject(coordinates); // json
         JSONObject data = jObject.getJSONObject("resolution"); // get data object
 
         JSONArray jArr = jObject.getJSONArray("coordinates");
@@ -74,7 +60,7 @@ public class ImageConverterUtil {
         BufferedImage image = new BufferedImage(data.getInt("width"), data.getInt("height"),
                 BufferedImage.TYPE_INT_ARGB);
 
-        for (int i = 0; i < jArr.length(); i ++) {
+        for (int i = 0; i < jArr.length(); i++) {
             JSONObject coordinate = jArr.getJSONObject(i);
 
             int x = coordinate.getInt("x");
@@ -85,8 +71,6 @@ public class ImageConverterUtil {
 
         return image;
     }
-
-
 
     private int[] getFirstPixelCoordinates(BufferedImage image) {
 
@@ -107,12 +91,11 @@ public class ImageConverterUtil {
         return coord;
     }
 
-
     private String getAllCoord(BufferedImage image, int coord_x, int coord_y) {
 
         StringBuffer coord = new StringBuffer();
         //json
-        coord.append("{resolution: {width: \""+image.getWidth() + "\", height: \"" + image.getHeight()+"\"}, coordinates: [");
+        coord.append("{resolution: {width: \"" + image.getWidth() + "\", height: \"" + image.getHeight() + "\"}, coordinates: [");
 
         while (coord_x < image.getWidth()) {
 
@@ -120,12 +103,12 @@ public class ImageConverterUtil {
             int y_up = coord_y - 1;
 
             while (checkLuminanceDark(image, coord_x, y_down)) {
-                coord.append("{x: \""+coord_x + "\", y: \"" + y_down + "\"}, ");
+                coord.append("{x: \"" + coord_x + "\", y: \"" + y_down + "\"}, ");
                 y_down++;
             }
 
             while (checkLuminanceDark(image, coord_x, y_up)) {
-                coord.append("{x: \""+coord_x + "\", y: \"" + y_up + "\"}, ");
+                coord.append("{x: \"" + coord_x + "\", y: \"" + y_up + "\"}, ");
                 y_up--;
             }
 
@@ -133,7 +116,7 @@ public class ImageConverterUtil {
             coord_x++;
         }
 
-        coord.delete(coord.length() - 2,coord.length());
+        coord.delete(coord.length() - 2, coord.length());
         coord.append("]}");
 
         return coord.toString();
@@ -164,16 +147,13 @@ public class ImageConverterUtil {
         try {
             Image imageAWT = getImageByCoord(image.getProcessedImage().getCoordinaatesJson());
             imageAWT = filterProcessed.apply(imageAWT);
-            byte [] imageInByte = getByteByImage(imageAWT);
+            byte[] imageInByte = getByteByImage(imageAWT);
             image.setImage(imageInByte);
 
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
     }
 
 }
-
-

@@ -19,24 +19,23 @@ app.directive('fileModel', ['$parse', function ($parse) {
 app.controller('ImageCtrl', function ($scope, $http) {
 
     $scope.modelFormHeader = '';
-
+    pageSize = 10;
+    $scope.currentPage = 1;
+    
     $scope.typeOfs = ['I', 'II', 'VI'];
 
     $scope.currentImage = {
         description: '',
-        typeOf:''
+        typeOf: ''
     };
-    
-    $scope.images = {};
 
-    pageSize = 10;
-    $scope.currentPage = 1;
+    $scope.images = {};
 
     $scope.newImage = function () {
         $scope.currentImage = {
             description: 'Наименование',
             scrFile: '',
-            typeOf: 'VOID'
+            typeOf: 'I'
         };
         $('#scrFile').val('');
     };
@@ -44,7 +43,7 @@ app.controller('ImageCtrl', function ($scope, $http) {
     $scope.deleteImage = function (image) {
         $http({
             method: "DELETE",
-            url: "/api/image/" + image.id
+            url: "api/image/" + image.id
         }).then(function (response) {
             $scope.newImage();
             $scope.loadImages($scope.currentPage);
@@ -60,7 +59,7 @@ app.controller('ImageCtrl', function ($scope, $http) {
         fd.append('imageId', image.id);
         fd.append('typeOf', image.typeOf);
 
-        $http.post("/api/image/create", fd, {
+        $http.post("api/image/create", fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function (data) {
@@ -72,9 +71,7 @@ app.controller('ImageCtrl', function ($scope, $http) {
         });
     };
 
-    
-
-    $scope.setCurrentImage= function (title, image) {
+    $scope.setCurrentImage = function (title, image) {
         $scope.currentImage = angular.copy(image);
         $scope.modelFormHeader = title;
     };
@@ -98,7 +95,7 @@ app.controller('ImageCtrl', function ($scope, $http) {
         }
         $http({
             method: "GET",
-            url: "/api/image/list/" + page + "?pageSize=" + pageSize
+            url: "api/image/list/" + page + "?pageSize=" + pageSize
         }).then(function (response) {
             $scope.images = response.data;
             $('.loader').hide();
@@ -122,7 +119,7 @@ app.controller('FilterCtrl', function ($scope, $http) {
 
     $scope.currentFilter = {
         name: '',
-        className:''
+        className: ''
     };
 
     $scope.filters = {};
@@ -164,7 +161,7 @@ app.controller('FilterCtrl', function ($scope, $http) {
 
 
 
-    $scope.setCurrentFilter= function (title, filter) {
+    $scope.setCurrentFilter = function (title, filter) {
         $scope.currentFilter = angular.copy(filter);
         $scope.modelFormHeader = title;
     };
