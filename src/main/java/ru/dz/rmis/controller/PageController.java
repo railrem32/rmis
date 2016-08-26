@@ -18,4 +18,9 @@ public class PageController {
     public String index(Locale locale, Model model) {
         return "images";
     }
+
+    @RequestMapping(value = "/filters", method = RequestMethod.GET)
+    public String filters(Locale locale, Model model) {
+        return "filters";
+    }
 }

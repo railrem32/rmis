@@ -118,7 +118,7 @@ app.controller('FilterCtrl', function ($scope, $http) {
     $scope.classNames = ['FilterProcessed'];
 
     $scope.currentFilter = {
-        name: '',
+        description: '',
         className: ''
     };
 
@@ -126,7 +126,7 @@ app.controller('FilterCtrl', function ($scope, $http) {
 
     $scope.newFilter = function () {
         $scope.currentFilter = {
-            name: 'Наименование фильтра',
+            description: 'Наименование фильтра',
             className: 'Класс реализации'
         };
     };
@@ -134,7 +134,7 @@ app.controller('FilterCtrl', function ($scope, $http) {
     $scope.deleteFilter = function (filter) {
         $http({
             method: "DELETE",
-            url: "/filters/" + filter.id
+            url: "/api/filters/" + filter.id
         }).then(function (response) {
             $scope.newFilter();
             $scope.loadFilters();
@@ -145,10 +145,10 @@ app.controller('FilterCtrl', function ($scope, $http) {
 
     $scope.saveFilter = function (filter) {
         var fd = new FormData();
-        fd.append('name', filter.name);
+        fd.append('description', filter.description);
         fd.append('className', filter.className);
 
-        $http.post("/filters", fd, {
+        $http.post("/api/filters", fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function (data) {
@@ -169,7 +169,7 @@ app.controller('FilterCtrl', function ($scope, $http) {
     $scope.loadFilters = function () {
         $http({
             method: "GET",
-            url: "/filters"
+            url: "/api/filters"
         }).then(function (response) {
             $scope.filters = response.data;
             $('.loader').hide();

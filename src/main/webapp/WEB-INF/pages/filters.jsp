@@ -15,7 +15,7 @@
             <%@include file="/WEB-INF/pages/jspf/menu.jspf" %>
         </div>
         <div class="col-sm-9">
-
+            <button type="button" class="btn btn-success data" data-toggle="modal" data-target="#editForm" ng-click="modelFormHeader = 'Создание';newFilter()">Добавить</button>
             <div class="loader"></div>
             <table class="table table-hover data" >
                 <thead>
