@@ -1,9 +1,23 @@
 package ru.dz.rmis.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Created by Alex on 22.08.16.
@@ -18,42 +32,52 @@ public class ImageEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "description")
+    private String description;
 
     @Column(nullable = false, name = "study_id")
-    private Long studyId;
+    private String studyId;
 
     @Column(nullable = false, name = "patient_id")
-    private Long patientId;
+    private String patientId;
 
-    @Column
-    private Date date;
+    @Column(name = "CREATED")
+    @Temporal(TemporalType.DATE)
+    private Date created;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "IMAGE")
     private byte[] image;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "comment")
+    private String comment;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type_of ")
     private ImageTypeOf typeOf;
 
+    @JoinColumn(name = "PROCESSED_IMAGE_ID", referencedColumnName = "ID")
     @OneToOne
     private ProcessedImage processedImage;
 
     public ImageEntity() {
     }
 
-    public ImageEntity(String name, Long studyId, Long patientId, Date date, byte[] image) {
-        this.name = name;
+    public ImageEntity(String description, String studyId, String patientId, Date created, byte[] image) {
+        this.description = description;
         this.studyId = studyId;
         this.patientId = patientId;
-        this.date = date;
+        this.created = created;
         this.image = image;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public Long getId() {
@@ -72,14 +96,6 @@ public class ImageEntity implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -88,28 +104,28 @@ public class ImageEntity implements Serializable {
         this.description = description;
     }
 
-    public Long getStudyId() {
+    public String getStudyId() {
         return studyId;
     }
 
-    public void setStudyId(Long studyId) {
+    public void setStudyId(String studyId) {
         this.studyId = studyId;
     }
 
-    public Long getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
-    public Date getDate() {
-        return date;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public byte[] getImage() {
@@ -117,7 +133,7 @@ public class ImageEntity implements Serializable {
     }
 
     public void setImage(byte[] image) {
-        this.image = image;
+        this.image = Arrays.copyOf(image, image.length);
     }
 
     public ProcessedImage getProcessedImage() {
@@ -142,7 +158,7 @@ public class ImageEntity implements Serializable {
         if (!id.equals(image1.id)) {
             return false;
         }
-        if (!name.equals(image1.name)) {
+        if (!description.equals(image1.description)) {
             return false;
         }
         if (!studyId.equals(image1.studyId)) {
@@ -151,7 +167,7 @@ public class ImageEntity implements Serializable {
         if (!patientId.equals(image1.patientId)) {
             return false;
         }
-        if (!date.equals(image1.date)) {
+        if (!created.equals(image1.created)) {
             return false;
         }
         return Arrays.equals(image, image1.image);
@@ -161,10 +177,10 @@ public class ImageEntity implements Serializable {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
         result = 31 * result + studyId.hashCode();
         result = 31 * result + patientId.hashCode();
-        result = 31 * result + date.hashCode();
+        result = 31 * result + created.hashCode();
         result = 31 * result + Arrays.hashCode(image);
         return result;
     }

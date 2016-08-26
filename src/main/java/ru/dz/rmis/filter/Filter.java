@@ -1,6 +1,6 @@
 package ru.dz.rmis.filter;
 
-import java.awt.*;
+import java.awt.Image;
 
 public interface Filter {
 

@@ -1,25 +1,33 @@
 package ru.dz.rmis.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * Created by Alex on 22.08.16.
  */
-
 @Entity
-@Table
+@Table(name = "processedImage")
 public class ProcessedImage implements Serializable {
 
+    private static final long serialVersionUID = 3140639417151360885L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "processedImage")
     private ImageEntity originalImage;
 
+        
     // List of value pairs such as [{x: 1, y: 1}, {x: 2, y: 2}]
-    @Column
+    @Column(name = "COORDINATES_JSON")
     private String coordinaatesJson;
 
     public ProcessedImage() {
@@ -56,13 +64,21 @@ public class ProcessedImage implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ProcessedImage that = (ProcessedImage) o;
 
-        if (!id.equals(that.id)) return false;
-        if (!originalImage.equals(that.originalImage)) return false;
+        if (!id.equals(that.id)) {
+            return false;
+        }
+        if (!originalImage.equals(that.originalImage)) {
+            return false;
+        }
         return coordinaatesJson.equals(that.coordinaatesJson);
 
     }

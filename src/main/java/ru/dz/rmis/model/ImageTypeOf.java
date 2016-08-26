@@ -9,6 +9,7 @@ public enum ImageTypeOf {
     I,
     II,
     III,
+    IV,
     VI;
 
     public static ImageTypeOf valueOf1(String name) {

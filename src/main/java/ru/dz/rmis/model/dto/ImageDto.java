@@ -1,16 +1,13 @@
 package ru.dz.rmis.model.dto;
 
-import org.springframework.stereotype.Component;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Alex on 23.08.16.
  */
-@Component
 public class ImageDto implements Serializable {
 
     private static final long serialVersionUID = -1971645606381715556L;
@@ -19,16 +16,16 @@ public class ImageDto implements Serializable {
 
     @NotNull
     @Size(min = 1)
-    private String name;
+    private String description;
 
     @NotNull
-    private Long studyId;
+    private String studyId;
 
     @NotNull
-    private Long patientId;
+    private String patientId;
 
     @NotNull
-    private Date date;
+    private Date created;
 
     @NotNull
     private byte[] imageBytes;
@@ -41,36 +38,36 @@ public class ImageDto implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Long getStudyId() {
+    public String getStudyId() {
         return studyId;
     }
 
-    public void setStudyId(Long studyId) {
+    public void setStudyId(String studyId) {
         this.studyId = studyId;
     }
 
-    public Long getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Long patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public byte[] getImageBytes() {

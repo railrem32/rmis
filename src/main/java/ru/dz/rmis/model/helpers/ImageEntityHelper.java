@@ -17,10 +17,10 @@ public class ImageEntityHelper {
     }
 
     public ImageEntity updateImageFromDto(ImageEntity image, ImageDto imageDto) {
-        image.setName(imageDto.getName());
+        image.setDescription(imageDto.getDescription());
         image.setStudyId(imageDto.getStudyId());
         image.setPatientId(imageDto.getPatientId());
-        image.setDate(imageDto.getDate());
+        image.setCreated(imageDto.getCreated());
         image.setImage(imageDto.getImageBytes());
         return image;
     }
@@ -28,7 +28,7 @@ public class ImageEntityHelper {
     public ImageDto createDtoFromImageEntity(ImageEntity entity) {
         ImageDto dto = new ImageDto();
         dto.setId(entity.getId());
-        dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
         dto.setPatientId(entity.getPatientId());
         dto.setStudyId(entity.getPatientId());
         dto.setImageBytes(entity.getImage());

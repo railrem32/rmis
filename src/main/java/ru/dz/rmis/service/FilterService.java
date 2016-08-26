@@ -1,8 +1,7 @@
 package ru.dz.rmis.service;
 
-import ru.dz.rmis.model.Filter;
-
 import java.util.List;
+import ru.dz.rmis.model.Filter;
 
 public interface FilterService {
 

@@ -1,7 +1,6 @@
 package ru.dz.rmis.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import ru.dz.rmis.model.ProcessedImage;
 
 /**

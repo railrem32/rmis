@@ -1,20 +1,19 @@
 package ru.dz.rmis.util;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import ru.dz.rmis.filter.FilterProcessed;
-import ru.dz.rmis.service.ImageService;
-import ru.dz.rmis.model.ImageEntity;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import javax.imageio.ImageIO;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import ru.dz.rmis.filter.FilterProcessed;
+import ru.dz.rmis.model.ImageEntity;
+import ru.dz.rmis.service.ImageService;
 
 /**
  * Created by Nail on 21.08.2016.

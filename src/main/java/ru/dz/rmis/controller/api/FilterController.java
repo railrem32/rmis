@@ -1,5 +1,6 @@
 package ru.dz.rmis.controller.api;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.dz.rmis.model.Filter;
 import ru.dz.rmis.service.FilterService;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/filters")
@@ -49,9 +48,9 @@ public class FilterController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String edit(@PathVariable Long id, @RequestParam String name, @RequestParam String className) {
+    public String edit(@PathVariable Long id, @RequestParam String description, @RequestParam String className) {
         Filter filter = filterService.findOne(id);
-        filter.setName(name);
+        filter.setDescription(description);
         filter.setClassName(className);
         filterService.save(filter);
         return "redirect:/filters";
